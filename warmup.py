@@ -12,14 +12,13 @@ def generate_map(max_height, max_width):
     return map_list
 
 
-def draw_map(map_list):
+def draw_map(map_list, max_width):
     import os
     os.system('clear')
-    map_width = 30
-    print(map_width * '# ')
+    print(max_width * '# ')
     for row in map_list:
         print(' '.join(row))
-    print(map_width * '# ')
+    print(max_width * '# ')
 
 
 def read_from_keyboard():
@@ -55,15 +54,17 @@ def place_character_on_map(x_coord, y_coord, map_list):
     return map_list
 
 
-max_width = 30
-max_height = 20
-x_coord = 5
-y_coord = 7
+max_width = 40
+max_height = 26
+x_coord = int(max_width / 2) - 1
+y_coord = int(max_height / 2) - 1
 game_map = generate_map(max_height, max_width)
-draw_map(game_map)
+game_map = place_character_on_map(x_coord, y_coord, game_map)
+draw_map(game_map, max_width)
+game_map = generate_map(max_height, max_width)
 while True:
     movement = read_from_keyboard()
     x_coord, y_coord = move_character(x_coord, y_coord, movement, max_width, max_height)
     game_map = place_character_on_map(x_coord, y_coord, game_map)
-    draw_map(game_map)
+    draw_map(game_map, max_width)
     game_map = generate_map(max_height, max_width)
